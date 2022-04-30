@@ -49,14 +49,14 @@ function readcsvfile(curFileDirectory) {
             // add the entry along with the filename the entry comes from to entries array
             entries.push(entry + directoryEntry);
 
-            // i currently on newline char so the next entry starts at i+1
+            // i is currently on newline char so the next entry starts at i+1
             entryStartIndex = i + 1
         }
     }
 
     // Start at 1 because we don't need to repeat the header entry from every file
     for (let i = 1; i < entries.length; i++) {
-        // This was written under the assumption I was writing specifically to a file //
+        /// This was written under the assumption I was writing specifically to a file ///
         // fileEditor.appendFile('combined.csv', "\n" + entries[i], err => {
         //     if(err) {
         //         console.log("Error")
