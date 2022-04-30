@@ -24,42 +24,35 @@ function readcsvfile(curFileDirectory) {
     var curFileContents
     // array to hold each entry
     var entries = []
+    // string for just filename (substring(11) to remove "./fixtures" which is included for every file)
+    var filename = curFileDirectory.substring(11)
     
     // reading the csv file as a text
     try {
         curFileContents = fileEditor.readFileSync(curFileDirectory, 'utf8');
     } catch (err) {
-        console.log("Error");
+        console.log("Error in reading file: " + curFileDirectory);
     }
 
-    // readFile version (Can't set to variable)
-    // fileEditor.readFile(curFileDirectory, 'utf8', (err, data) => {
-    //     if(err) {
-    //         console.log("Error");
-    //         return;
-    //     }
-    //     console.log(data);
-    // });
 
     // Variable to keep track of index for start of every entry
     var entryStartIndex = 0
-    // For loop to get each entry for content
+    // For loop of each char in string to get each entry for the content of the csv file
     for (let i = 0; i < curFileContents.length; i++) {
         
         if(curFileContents[i] == '\n') {
-            // content of entry
+            // content of entry (i-1 because substring was including newline char)
             var entry = curFileContents.substring(entryStartIndex, i-1);
             // filename needed to add to entry
-            var directoryEntry =  ",\"" + curFileDirectory.substring(11) + "\"";
+            var directoryEntry =  ",\"" + filename + "\"";
 
+            // add the entry along with the filename the entry comes from to entries array
             entries.push(entry + directoryEntry);
 
+            // i currently on newline char so the next entry starts at i+1
             entryStartIndex = i + 1
         }
     }
-
-
-    // console.log("Test: " + entries);
 
     // Start at 1 because we don't need to repeat the header entry from every file
     for (let i = 1; i < entries.length; i++) {
@@ -84,12 +77,10 @@ function readcsvfile(curFileDirectory) {
 //     }
 // })
 
-// Output headers
+// Output header columns of the combined.csv file
 console.log("\"email_hash\",\"category\",\"filename\"")
 
 // for the amount of arguments in command line add the data
 for (let i = 0; i < fileDirectories.length; i++) {
     readcsvfile(fileDirectories[i])
 }
-
-// readcsvfile(fileDirectories[0]);
