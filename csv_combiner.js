@@ -2,6 +2,9 @@
 // Timothy Lieu
 // Javascript file to take csv files as inputs and combining them to output one "combined.csv" file
 
+// Uses node.js environment to run
+// Example usage: node ./csv_combiner.js ./fixtures/accessories.csv ./fixtures/clothing.csv
+
 
 // Array holding command line arguments
 var commandLineArgs = process.argv;
@@ -24,7 +27,7 @@ function readcsvfile(curFileDirectory) {
     var curFileContents
     // array to hold each entry
     var entries = []
-    // string for just filename (substring(11) to remove "./fixtures" which is included for every file)
+    // string for just filename (substring(11) to remove "./fixtures/" which is included for every file)
     var filename = curFileDirectory.substring(11)
     
     // reading the csv file as a text
